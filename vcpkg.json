@@ -1,0 +1,13 @@
+{
+    "name": "cue-api-runner",
+    "version": "0.1.0",
+    "dependencies": [
+        {
+            "name": "curl",
+            "features": [ "ssl" ]
+        },
+        {
+            "name": "yaml-cpp"
+        }
+    ]
+}
