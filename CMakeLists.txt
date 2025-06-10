@@ -13,9 +13,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(cue-api-runner
     src/main.cpp
-#    src/Request.cpp
+    src/Request.cpp
 #    src/RequestLoader.cpp
-)
+ "src/Request.cpp" "src/RequestLoader.cpp")
 target_include_directories(cue-api-runner PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
