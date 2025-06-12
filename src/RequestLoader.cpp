@@ -22,13 +22,13 @@ std::vector<Request> RequestLoader::loadFromYaml(const std::string& path) {
 	try {
 		root = YAML::LoadFile(path);
 	} catch (const YAML::BadFile& e) {
-		std::cerr << "[Error] Cannot open YAML file: " << path << std::endl;
+		std::cerr << "[Error] Yamlファイルの読み込みに失敗しました： " << path << std::endl;
 		return reqList;
 	}
 
 	const YAML::Node& requestsNode = root[YAML_CONFIG_ROOT_NAME];
 	if (!requestsNode || !requestsNode.IsSequence()) {
-		std::cerr << "[Error] 'requests' node missing or not a sequence in " << path << std::endl;
+		std::cerr << "[Error] requestsノードが存在しません： " << path << std::endl;
 		return reqList;
 	}
 
@@ -39,31 +39,41 @@ std::vector<Request> RequestLoader::loadFromYaml(const std::string& path) {
 		const std::string url = expectString(node, REQUESTS_REQUIRED_FIELD_URL);
 
 		const HttpMethod parsedMethod = parseMethod(method);
-
+		
 		// ヘッダー部
 		std::map<std::string, std::string> headers{};
 		if (node[REQUESTS_OPTIONAL_FIELD_HEADERS]) {
 			for (const std::pair<YAML::Node, YAML::Node>& header : node[REQUESTS_OPTIONAL_FIELD_HEADERS]) {
 				if (!header.first.IsScalar() || !header.second.IsScalar()) {
-					std::cerr << "[Warning] invalid header entry for " << name << std::endl;
+					std::cerr << "[Warning] headerが不正です：" << name << std::endl;
 					continue;
 				}
 				headers.emplace(header.first.Scalar(), header.second.Scalar());
 			}
 		}
 
-		// TODO body部の取得
-		const std::string body{};
+		// body部
+		std::string body{};
+		if (node[REQUESTS_OPTIONAL_FIELD_BODY]) {
+			if (!node[REQUESTS_OPTIONAL_FIELD_BODY].IsScalar()) {
+				std::cerr << "[Warning] bodyが文字列ではありません： " << name << std::endl;
+			} else {
+				body = node[REQUESTS_OPTIONAL_FIELD_BODY].Scalar();
+			}
+		}
 
 		reqList.emplace_back(name, parsedMethod, url, headers, body);
+		std::cout << "YAMLファイル読み込み完了：" << name << std::endl;
 	}
+
+	return reqList;
 }
 
 HttpMethod RequestLoader::parseMethod(const std::string& method) {
 	if (method == METHOD_GET) return HttpMethod::GET;
 	if (method == METHOD_POST) return HttpMethod::POST;
 
-	std::cerr << "[Warning] Unknown Http method: " << method << ", defaulting to GET" << std::endl;
+	std::cerr << "[Warning] 不正なmethodです： " << method << ", デフォルトで GETを設定します" << std::endl;
 	return HttpMethod::GET;
 }
 
