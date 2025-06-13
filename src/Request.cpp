@@ -2,7 +2,7 @@
 
 Request::Request(
 	const std::string& name,
-	HttpMethod method,
+	const HttpMethod method,
 	const std::string& url,
 	const std::map<std::string, std::string>& headers,
 	const std::string& body)
@@ -12,3 +12,23 @@ Request::Request(
 	mHeaders(headers),
 	mBody(body)
 {}
+
+const std::string& Request::getName() const {
+	return mName;
+}
+
+const HttpMethod Request::getMethod() const {
+	return mMethod;
+}
+
+const std::string& Request::getUrl() const {
+	return mUrl;
+}
+
+const std::map<std::string, std::string>& Request::getHeaders() const {
+	return mHeaders;
+}
+
+const std::string& Request::getBody() const {
+	return mBody;
+}
