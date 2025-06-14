@@ -8,6 +8,7 @@ struct HttpResponse {
 	long statusCode;
 	std::map<std::string, std::string> headers;
 	std::string body;
+	double totalTime;
 };
 
 class HttpClient {

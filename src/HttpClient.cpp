@@ -70,6 +70,9 @@ HttpResponse HttpClient::perform(const Request& req) {
 	// ステータスコード
 	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response.statusCode);
 
+	// 実行時間
+	curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &response.totalTime);
+
 	// 開放(unique_ptrでラップした方がよさそう)
 	curl_slist_free_all(slist);
 	curl_easy_cleanup(curl);

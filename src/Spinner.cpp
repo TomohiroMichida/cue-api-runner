@@ -27,7 +27,7 @@ void Spinner::stop() {
 void Spinner::run() {
     size_t idx = 0;
     while (mActive) {
-        char c = mTicks[idx++ % mTicks.size()];
+        const char c = mTicks[idx++ % mTicks.size()];
         std::cout << "\r" << c << std::flush;
         std::this_thread::sleep_for(std::chrono::milliseconds(mIntervalMs));
     }

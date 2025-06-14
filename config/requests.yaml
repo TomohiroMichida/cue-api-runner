@@ -1,8 +1,26 @@
 # config/requests.yaml
 requests:
-  - name: "example-get"
+  - name: "example-get-1"
     method: GET
     url: "https://httpbin.org/get"
+  - name: "example-get-2"
+    method: GET
+    url: "https://httpbin.org/get"
+  - name: "example-get-3"
+    method: GET
+    url: "https://httpbin.org/get"
+  - name: "example-get-4"
+    method: GET
+    url: "https://httpbin.org/get"
+  - name: "example-get-5"
+    method: GET
+    url: "https://httpbin.org/get"
+  - name: "example-get-404"
+    method: GET
+    url: "https://httpbin.org/status/404"
+  - name: "example-get-500"
+    method: GET
+    url: "https://httpbin.org/status/500"
   - name: "example-post"
     method: POST
     url: "https://httpbin.org/post"
