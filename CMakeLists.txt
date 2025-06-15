@@ -17,7 +17,8 @@ add_executable(cue-api-runner
     src/RequestLoader.cpp
     src/HttpClient.cpp
     src/Spinner.cpp
- "src/Request.cpp" "src/RequestLoader.cpp" "src/HttpClient.cpp" "src/Spinner.cpp")
+
+ "src/Request.cpp" "src/RequestLoader.cpp" "src/HttpClient.cpp" "src/Spinner.cpp" "src/TreadPool.cpp")
 target_include_directories(cue-api-runner PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
